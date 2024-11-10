@@ -19,6 +19,13 @@ class TeamMembersScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
+        leading: IconButton(
+          // زر الرجوع
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context); // يرجع إلى الشاشة السابقة
+          },
+        ),
       ),
       backgroundColor: Color(0xFF1B1B2F), // لون الخلفية الداكنة
       body: Padding(

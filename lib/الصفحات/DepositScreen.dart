@@ -15,6 +15,13 @@ class DepositScreen extends StatelessWidget {
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
+        leading: IconButton(
+          // زر الرجوع
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context); // يرجع إلى الشاشة السابقة
+          },
+        ),
         backgroundColor: const Color(0xFF0D1B2A),
       ),
       backgroundColor: const Color(0xFF0D1B2A),

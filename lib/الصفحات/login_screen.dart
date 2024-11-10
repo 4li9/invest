@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:invest/controller/auth/login_controller.dart';
+import 'package:invest/core/constant/colore.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    LoginScreenControllerimp controller = Get.put(LoginScreenControllerimp());
+
     return Scaffold(
       backgroundColor: const Color(0xFF0D1B2A), // Dark background color
       body: Stack(
         children: [
-          // Background Image
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(
-                    'assets/crypto_background.jpg'), // Replace with your image asset path
-                fit: BoxFit.cover,
-              ),
+          // Fullscreen Background Image
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/iPhone 16 Pro Max - 3.png', // Replace with your image asset path
+              fit: BoxFit.cover, // Fit image to cover the full screen
             ),
           ),
           // Dark Overlay to match DepositScreen background
@@ -33,10 +35,15 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   ElevatedButton.icon(
                     onPressed: () {
-                      // Navigate to HomeScreen on Google login button press
-                      Navigator.pushNamed(context, '/home');
+                      controller.goToHomeScreen();
                     },
-                    icon: const Icon(Icons.login),
+                    icon: Icon(
+                      Icons
+                          .g_mobiledata, // يمكنك استبدال الأيقونة بأيقونة جوجل مناسبة
+                      size: 30,
+                      color: Colors
+                          .red, // لون الأيقونة ليكون أقرب لألوان شعار جوجل
+                    ),
                     label: const Text('تسجيل دخول بواسطة جوجل'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
@@ -47,14 +54,52 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+
                   const SizedBox(height: 16),
-                  TextButton(
+                  ElevatedButton.icon(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/register');
+                      controller.goToHomeScreen();
                     },
-                    child: const Text(
-                      'ليس لديك حساب؟ سجل الآن',
-                      style: TextStyle(color: Colors.green),
+                    icon: Icon(
+                      Icons.email,
+                      color: AppColor.one,
+                      size: 24,
+                    ),
+                    label: const Text('تسجيل دخول بواسطة ايميل'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColor.two,
+                      foregroundColor: AppColor.one,
+                      minimumSize: const Size(double.infinity, 48),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  // Text instead of TextButton
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        WidgetSpan(
+                          child: GestureDetector(
+                            onTap: () {
+                              controller.goToRegisterScreen();
+                            },
+                            child: Text(
+                              'سجل الآن',
+                              style: TextStyle(
+                                color: Colors.green,
+                                decoration: TextDecoration
+                                    .underline, // إضافة خط أسفل الكلمة
+                              ),
+                            ),
+                          ),
+                        ),
+                        const TextSpan(
+                          text: ' ليس لديك حساب؟',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
                     ),
                   ),
                 ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ProfileScreen extends StatelessWidget {
+class Profile_Screen extends StatelessWidget {
   final String userId = "12345"; // ID الخاص بالمستخدم
   final String fullName = "أحمد محمد علي"; // اسم المستخدم
 

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:invest/controller/auth/home_controller.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    HomeScreenControllerimp controller = Get.put(HomeScreenControllerimp());
+
     return Scaffold(
       backgroundColor: Color(0xFF1B1B2F), // خلفية داكنة
       appBar: AppBar(
@@ -17,7 +21,7 @@ class HomeScreen extends StatelessWidget {
             child: IconButton(
               icon: Icon(Icons.account_circle, size: 36, color: Colors.white),
               onPressed: () {
-                Navigator.pushNamed(context, '/profile');
+                controller.goToProfileScreen();
               },
             ),
           ),
@@ -66,27 +70,26 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   _buildActionButton(
                       context, 'سحب', Icons.money_off, Colors.orange, () {
-                    Navigator.pushNamed(context, '/withdraw');
+                    controller.gotoWithdrawScreen();
                   }),
                   _buildActionButton(
                       context, 'إيداع', Icons.attach_money, Colors.amber, () {
-                    Navigator.pushNamed(context, '/deposit');
+                    controller.gotoDepositScreen();
                   }),
                   _buildActionButton(context, 'الدعم الفني',
                       Icons.support_agent, Colors.purple, () {
-                    Navigator.pushNamed(context, '/support');
-
+                    controller.gotoNewSupportScreen();
                     // تنفيذ كود الدعم هنا
                   }),
                   _buildActionButton(
                       context, 'دعوة صديق', Icons.group_add, Colors.teal, () {
-                    Navigator.pushNamed(context, '/invite');
-                    // تنفيذ كود دعوة فريق هنا
+                    controller
+                        .gotoInviteFriendScreen(); // تنفيذ كود دعوة فريق هنا
                   }),
                   _buildActionButton(
                       context, 'الفريق', Icons.group, Colors.blue, () {
-                    Navigator.pushNamed(context, '/team');
-                    // تنفيذ كود الإعدادات هنا
+                    controller
+                        .gotoTeamMembersScreen(); // تنفيذ كود الإعدادات هنا
                   }),
                 ],
               ),

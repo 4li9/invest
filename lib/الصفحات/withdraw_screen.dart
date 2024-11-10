@@ -13,6 +13,13 @@ class WithdrawScreen extends StatelessWidget {
         elevation: 0,
         title: const Text('سحب'),
         centerTitle: true,
+        leading: IconButton(
+          // زر الرجوع
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context); // يرجع إلى الشاشة السابقة
+          },
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.help_outline),

@@ -11,6 +11,12 @@ class ProfileScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
+         leading: IconButton( // زر الرجوع
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context); // يرجع إلى الشاشة السابقة
+          },
+        ),
         title: Text(
           'الملف الشخصي',
           style: TextStyle(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'app_routes.dart'; // استيراد ملف المسارات
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:invest/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A7%D8%AA/login_screen.dart';
+import 'package:invest/routes.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,15 +12,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false, // Hide the debug banner
-
-      title: 'Registration App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      initialRoute: '/',
-      routes: AppRoutes.getRoutes(), // استدعاء المسارات من الملف الجديد
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: LoginScreen(),
+      routes: routes,
     );
   }
 }

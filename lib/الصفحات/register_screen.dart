@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'dart:async';
+
+import 'package:invest/controller/auth/RegisterScreen_controller%20copy.dart';
 
 class RegisterScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -15,6 +19,13 @@ class RegisterScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('إنشاء حساب'),
         centerTitle: true,
+        leading: IconButton(
+          // زر الرجوع
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context); // يرجع إلى الشاشة السابقة
+          },
+        ),
         backgroundColor: const Color(0xFF0D1B2A),
       ),
       backgroundColor: const Color(0xFF0D1B2A),
@@ -55,33 +66,10 @@ class RegisterScreen extends StatelessWidget {
               icon: Icons.person_add,
             ),
             const SizedBox(height: 24),
-            const Text(
-              "تحميل الهوية وإثبات الإقامة:",
-              style: TextStyle(color: Colors.grey, fontSize: 16),
-            ),
-            const SizedBox(height: 8),
-            ElevatedButton.icon(
-              onPressed: () {
-                // Code to upload files (ID and Residence Proof)
-              },
-              icon: const Icon(Icons.upload_file),
-              label: const Text('تحميل الملفات'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.amber,
-                foregroundColor: Colors.black,
-                padding: const EdgeInsets.symmetric(vertical: 14),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-            ),
-            const SizedBox(height: 24),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/home');
-                },
+                onPressed: () => _showLoadingDialog(context),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.amber,
                   padding: const EdgeInsets.symmetric(vertical: 14),
@@ -125,5 +113,42 @@ class RegisterScreen extends StatelessWidget {
       keyboardType: keyboardType,
       style: const TextStyle(color: Colors.white),
     );
+  }
+
+  void _showLoadingDialog(BuildContext context) {
+    RegisterScreenControllerimp controller =
+        Get.put(RegisterScreenControllerimp());
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => Dialog(
+        backgroundColor: Colors.black54,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'جاري إنشاء حساب',
+                style: TextStyle(color: Colors.amber, fontSize: 18),
+              ),
+              const SizedBox(height: 16),
+              const CircularProgressIndicator(color: Colors.amber),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    // تأخير لمدة 5 ثوانٍ
+    Timer(const Duration(seconds: 5), () {
+      Navigator.pop(context); // إغلاق نافذة الانتظار
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('تم إنشاء الحساب')),
+      );
+      controller.goToHomeScreen();
+    });
   }
 }
