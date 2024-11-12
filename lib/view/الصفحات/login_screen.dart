@@ -4,7 +4,7 @@ import 'package:invest/controller/auth/login_controller.dart';
 import 'package:invest/core/constant/colore.dart';
 
 class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class LoginScreen extends StatelessWidget {
                     onPressed: () {
                       controller.goToHomeScreen();
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons
                           .g_mobiledata, // يمكنك استبدال الأيقونة بأيقونة جوجل مناسبة
                       size: 30,
@@ -60,7 +60,7 @@ class LoginScreen extends StatelessWidget {
                     onPressed: () {
                       controller.goToHomeScreen();
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.email,
                       color: AppColor.one,
                       size: 24,
@@ -85,7 +85,7 @@ class LoginScreen extends StatelessWidget {
                             onTap: () {
                               controller.goToRegisterScreen();
                             },
-                            child: Text(
+                            child: const Text(
                               'سجل الآن',
                               style: TextStyle(
                                 color: Colors.green,

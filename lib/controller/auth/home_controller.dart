@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:invest/core/constant/app_routes.dart';
 
 abstract class HomeScreenController extends GetxController {
+  // ignore: non_constant_identifier_names
   HomeScreen();
   goToProfileScreen();
   gotoNewSupportScreen();
@@ -14,6 +15,7 @@ abstract class HomeScreenController extends GetxController {
 
 class HomeScreenControllerimp extends HomeScreenController {
   @override
+  // ignore: non_constant_identifier_names
   HomeScreen() {}
 
   @override
