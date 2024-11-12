@@ -1,13 +1,14 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:async';
 
+import 'package:invest/core/constant/app_routes.dart';
 import 'package:invest/controller/auth/RegisterScreen_controller%20copy.dart';
 
-class RegisterScreen extends StatelessWidget {
+class CheckTheCode extends StatelessWidget {
   final TextEditingController emailOrPhoneController = TextEditingController();
 
-  RegisterScreen({super.key});
+  CheckTheCode({super.key});
 
   bool _isChecked = false;
 
@@ -172,7 +173,8 @@ class RegisterScreen extends StatelessWidget {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Account created')),
       );
-      controller.goToHomeScreen();
+      Get.toNamed(AppRoute.CheckTheCode); // الانتقال إلى صفحة التحقق من الكود
     });
   }
 }
+*/

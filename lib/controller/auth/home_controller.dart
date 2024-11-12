@@ -10,7 +10,6 @@ abstract class HomeScreenController extends GetxController {
   gotoWithdrawScreen();
   gotoInviteFriendScreen();
   gotoTeamMembersScreen();
-
 }
 
 class HomeScreenControllerimp extends HomeScreenController {
@@ -27,28 +26,24 @@ class HomeScreenControllerimp extends HomeScreenController {
   gotoNewSupportScreen() {
     Get.toNamed(AppRoute.NewSupportScreen);
   }
-  
+
   @override
   gotoDepositScreen() {
     Get.toNamed(AppRoute.DepositScreen);
-    throw UnimplementedError();
   }
-  
+
   @override
   gotoInviteFriendScreen() {
     Get.toNamed(AppRoute.InviteFriendScreen);
-    throw UnimplementedError();
   }
-  
+
   @override
   gotoTeamMembersScreen() {
     Get.toNamed(AppRoute.TeamMembersScreen);
-    throw UnimplementedError();
   }
-  
+
   @override
   gotoWithdrawScreen() {
     Get.toNamed(AppRoute.WithdrawScreen);
-    throw UnimplementedError();
   }
 }
