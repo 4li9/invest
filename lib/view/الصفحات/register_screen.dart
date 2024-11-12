@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'dart:async';
-
 import 'package:invest/controller/auth/RegisterScreen_controller%20copy.dart';
 
-// ignore: must_be_immutable
 class RegisterScreen extends StatelessWidget {
-  final TextEditingController emailOrPhoneController = TextEditingController();
-
-  RegisterScreen({super.key});
-
-  bool _isChecked = false;
-
   @override
   Widget build(BuildContext context) {
+    RegisterScreenControllerimp controller =
+        Get.put(RegisterScreenControllerimp());
+
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.close, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
-        ),
         backgroundColor: Colors.white,
         elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.close, color: Colors.black),
+          onPressed: () {
+            Get.back(); // هذا السطر يقوم بالعودة للصفحة السابقة
+          },
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.help_outline, color: Colors.black),
+            onPressed: () {},
+          ),
+        ],
       ),
-      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -31,149 +32,82 @@ class RegisterScreen extends StatelessWidget {
           children: [
             Text(
               'Welcome to Binance',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            const SizedBox(height: 20),
-            _buildTextField(
-              controller: emailOrPhoneController,
-              labelText: 'Email/Phone number',
+            SizedBox(height: 24),
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Email/Phone number',
+                hintText: 'Email/Phone (without country code)',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 16),
             Row(
               children: [
                 Checkbox(
-                  value: _isChecked,
-                  onChanged: (value) {
-                    _isChecked = value ?? false;
-                  },
+                  value: true,
+                  onChanged: (bool? value) {},
                 ),
                 Expanded(
-                  child: Text.rich(
-                    TextSpan(
-                      text: 'By creating an account, I agree to Binance\'s ',
-                      style: TextStyle(color: Colors.black54),
-                      children: [
-                        TextSpan(
-                          text: 'Terms of Service',
-                          style: TextStyle(
-                            color: Colors.blue,
-                            decoration: TextDecoration.underline,
-                          ),
-                        ),
-                        TextSpan(text: ' and '),
-                        TextSpan(
-                          text: 'Privacy Policy.',
-                          style: TextStyle(
-                            color: Colors.blue,
-                            decoration: TextDecoration.underline,
-                          ),
-                        ),
-                      ],
-                    ),
+                  child: Text(
+                    "By creating an account, I agree to Binance's Terms of Service and Privacy Policy.",
+                    style: TextStyle(fontSize: 14),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 24),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: _isChecked
-                    ? () => _showLoadingDialog(context)
-                    : null, // Disable button if checkbox is not checked
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.yellow[700],
-                  padding: const EdgeInsets.symmetric(vertical: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                child: const Text(
+                onPressed: () {
+                  controller.goToCheckTheCode();
+                },
+                child: Text(
                   'Next',
-                  style: TextStyle(fontSize: 16, color: Colors.black),
+                  style: TextStyle(color: Colors.black),
                 ),
               ),
             ),
-            const SizedBox(height: 16),
-            Center(
-              child: Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Sign up as an entity ',
-                      style: TextStyle(color: Colors.blue),
-                    ),
-                    TextSpan(
-                      text: 'or ',
-                      style: TextStyle(color: Colors.black54),
-                    ),
-                    TextSpan(
-                      text: 'Log in',
-                      style: TextStyle(color: Colors.blue),
-                    ),
-                  ],
+            SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    'Sign up as an entity',
+                    style: TextStyle(color: Colors.orange),
+                  ),
                 ),
-              ),
+                Text(
+                  ' or ',
+                  style: TextStyle(color: Colors.grey),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    'Log in',
+                    style: TextStyle(color: Colors.orange),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
       ),
     );
-  }
-
-  Widget _buildTextField({
-    required TextEditingController controller,
-    required String labelText,
-  }) {
-    return TextField(
-      controller: controller,
-      decoration: InputDecoration(
-        labelText: labelText,
-        labelStyle: const TextStyle(color: Colors.grey),
-        filled: true,
-        fillColor: Colors.grey[200],
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide.none,
-        ),
-      ),
-      style: const TextStyle(color: Colors.black),
-    );
-  }
-
-  void _showLoadingDialog(BuildContext context) {
-    RegisterScreenControllerimp controller =
-        Get.put(RegisterScreenControllerimp());
-
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => Dialog(
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                'Creating account...',
-                style: TextStyle(color: Colors.black, fontSize: 18),
-              ),
-              const SizedBox(height: 16),
-              const CircularProgressIndicator(color: Colors.yellow),
-            ],
-          ),
-        ),
-      ),
-    );
-
-    Timer(const Duration(seconds: 5), () {
-      Navigator.pop(context); // Close loading dialog
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Account created')),
-      );
-      controller.goToCheckTheCode();
-    });
   }
 }

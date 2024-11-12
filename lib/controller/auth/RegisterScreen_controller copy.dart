@@ -6,10 +6,7 @@ import 'package:invest/core/constant/app_routes.dart';
 abstract class RegisterScreenController extends GetxController {
   // ignore: non_constant_identifier_names
   RegisterScreen();
-  goToHomeScreen();
-   goToCheckTheCode();
-
-
+  goToCheckTheCode();
 }
 
 class RegisterScreenControllerimp extends RegisterScreenController {
@@ -18,15 +15,7 @@ class RegisterScreenControllerimp extends RegisterScreenController {
   RegisterScreen() {}
 
   @override
-  goToHomeScreen() {
-    Get.toNamed(AppRoute.HomeScreen);
-  }
-  
-  @override
   goToCheckTheCode() {
     Get.toNamed(AppRoute.CheckTheCode);
-
   }
-
-  
 }
