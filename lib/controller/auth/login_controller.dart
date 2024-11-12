@@ -5,7 +5,7 @@ abstract class LoginScreenController extends GetxController {
   // ignore: non_constant_identifier_names
   LoginScreen();
   goToHomeScreen();
-  goToRegisterScreen();
+  goToCheckTheCode();
 }
 
 class LoginScreenControllerimp extends LoginScreenController {
@@ -19,7 +19,7 @@ class LoginScreenControllerimp extends LoginScreenController {
   }
 
   @override
-  goToRegisterScreen() {
-    Get.toNamed(AppRoute.RegisterScreen);
+  goToCheckTheCode() {
+    Get.toNamed(AppRoute.CheckTheCode);
   }
 }

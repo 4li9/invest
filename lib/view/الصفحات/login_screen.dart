@@ -83,7 +83,7 @@ class LoginScreen extends StatelessWidget {
                         WidgetSpan(
                           child: GestureDetector(
                             onTap: () {
-                              controller.goToRegisterScreen();
+                              controller.goToCheckTheCode();
                             },
                             child: const Text(
                               'سجل الآن',
