@@ -3,90 +3,119 @@ import 'package:get/get.dart';
 import 'dart:async';
 
 import 'package:invest/controller/auth/RegisterScreen_controller%20copy.dart';
-import 'package:invest/view/widget/auth/BackgroundWrapper%20.dart';
 
+// ignore: must_be_immutable
 class RegisterScreen extends StatelessWidget {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController fullNameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController inviterIDController = TextEditingController();
+  final TextEditingController emailOrPhoneController = TextEditingController();
 
   RegisterScreen({super.key});
 
+  bool _isChecked = false;
+
   @override
   Widget build(BuildContext context) {
-    return BackgroundWrapper(
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          title: const Text('إنشاء حساب'),
-          centerTitle: true,
-          leading: IconButton(
-            // زر الرجوع
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () {
-              Navigator.pop(context); // يرجع إلى الشاشة السابقة
-            },
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.close, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
         ),
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildTextField(
-                controller: emailController,
-                labelText: 'البريد الإلكتروني',
-                icon: Icons.email,
-              ),
-              const SizedBox(height: 16),
-              _buildTextField(
-                controller: phoneController,
-                labelText: 'رقم الهاتف',
-                icon: Icons.phone,
-                keyboardType: TextInputType.phone,
-              ),
-              const SizedBox(height: 16),
-              _buildTextField(
-                controller: fullNameController,
-                labelText: 'الاسم الكامل',
-                icon: Icons.person,
-              ),
-              const SizedBox(height: 16),
-              _buildTextField(
-                controller: passwordController,
-                labelText: 'كلمة المرور',
-                icon: Icons.lock,
-                obscureText: true,
-              ),
-              const SizedBox(height: 16),
-              _buildTextField(
-                controller: inviterIDController,
-                labelText: 'معرف المدعو',
-                icon: Icons.person_add,
-              ),
-              const SizedBox(height: 24),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () => _showLoadingDialog(context),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.amber,
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+        backgroundColor: Colors.white,
+        elevation: 0,
+      ),
+      backgroundColor: Colors.white,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Welcome to Binance',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
+            _buildTextField(
+              controller: emailOrPhoneController,
+              labelText: 'Email/Phone number',
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Checkbox(
+                  value: _isChecked,
+                  onChanged: (value) {
+                    _isChecked = value ?? false;
+                  },
+                ),
+                Expanded(
+                  child: Text.rich(
+                    TextSpan(
+                      text: 'By creating an account, I agree to Binance\'s ',
+                      style: TextStyle(color: Colors.black54),
+                      children: [
+                        TextSpan(
+                          text: 'Terms of Service',
+                          style: TextStyle(
+                            color: Colors.blue,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                        TextSpan(text: ' and '),
+                        TextSpan(
+                          text: 'Privacy Policy.',
+                          style: TextStyle(
+                            color: Colors.blue,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  child: const Text(
-                    'تسجيل',
-                    style: TextStyle(fontSize: 16, color: Colors.black),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: _isChecked
+                    ? () => _showLoadingDialog(context)
+                    : null, // Disable button if checkbox is not checked
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.yellow[700],
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
                   ),
                 ),
+                child: const Text(
+                  'Next',
+                  style: TextStyle(fontSize: 16, color: Colors.black),
+                ),
               ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 16),
+            Center(
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'Sign up as an entity ',
+                      style: TextStyle(color: Colors.blue),
+                    ),
+                    TextSpan(
+                      text: 'or ',
+                      style: TextStyle(color: Colors.black54),
+                    ),
+                    TextSpan(
+                      text: 'Log in',
+                      style: TextStyle(color: Colors.blue),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -95,26 +124,20 @@ class RegisterScreen extends StatelessWidget {
   Widget _buildTextField({
     required TextEditingController controller,
     required String labelText,
-    required IconData icon,
-    bool obscureText = false,
-    TextInputType keyboardType = TextInputType.text,
   }) {
     return TextField(
       controller: controller,
       decoration: InputDecoration(
         labelText: labelText,
         labelStyle: const TextStyle(color: Colors.grey),
-        prefixIcon: Icon(icon, color: Colors.amber),
         filled: true,
-        fillColor: Colors.black54,
+        fillColor: Colors.grey[200],
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide.none,
         ),
       ),
-      obscureText: obscureText,
-      keyboardType: keyboardType,
-      style: const TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.black),
     );
   }
 
@@ -126,30 +149,29 @@ class RegisterScreen extends StatelessWidget {
       context: context,
       barrierDismissible: false,
       builder: (context) => Dialog(
-        backgroundColor: Colors.black54,
+        backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        child: const Padding(
-          padding: EdgeInsets.all(16.0),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                'جاري إنشاء حساب',
-                style: TextStyle(color: Colors.amber, fontSize: 18),
+              const Text(
+                'Creating account...',
+                style: TextStyle(color: Colors.black, fontSize: 18),
               ),
-              SizedBox(height: 16),
-              CircularProgressIndicator(color: Colors.amber),
+              const SizedBox(height: 16),
+              const CircularProgressIndicator(color: Colors.yellow),
             ],
           ),
         ),
       ),
     );
 
-    // تأخير لمدة 5 ثوانٍ
     Timer(const Duration(seconds: 5), () {
-      Navigator.pop(context); // إغلاق نافذة الانتظار
+      Navigator.pop(context); // Close loading dialog
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('تم إنشاء الحساب')),
+        const SnackBar(content: Text('Account created')),
       );
       controller.goToCheckTheCode();
     });

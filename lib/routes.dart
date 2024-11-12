@@ -21,6 +21,5 @@ Map<String, Widget Function(BuildContext)> routes = {
   AppRoute.InviteFriendScreen: (context) => const InviteFriendScreen(),
   AppRoute.HomeScreen: (context) => const HomeScreen(),
   AppRoute.DepositScreen: (context) => const DepositScreen(),
-    AppRoute.CheckTheCode: (context) =>  CheckTheCode(),
-
+  AppRoute.CheckTheCode: (context) => CheckTheCode(),
 };
