@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:invest/view/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A7%D8%AA/CheckTheCode.dart';
 import 'package:invest/view/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A7%D8%AA/DepositScreen.dart';
 import 'package:invest/view/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A7%D8%AA/InviteFriendScreen.dart';
 import 'package:invest/view/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A7%D8%AA/NewSupportScreen.dart';
@@ -20,4 +21,6 @@ Map<String, Widget Function(BuildContext)> routes = {
   AppRoute.InviteFriendScreen: (context) => const InviteFriendScreen(),
   AppRoute.HomeScreen: (context) => const HomeScreen(),
   AppRoute.DepositScreen: (context) => const DepositScreen(),
+    AppRoute.CheckTheCode: (context) =>  CheckTheCode(),
+
 };

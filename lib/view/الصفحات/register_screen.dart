@@ -151,7 +151,7 @@ class RegisterScreen extends StatelessWidget {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('تم إنشاء الحساب')),
       );
-      controller.goToHomeScreen();
+      controller.goToCheckTheCode();
     });
   }
 }

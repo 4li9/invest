@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: const Color.fromARGB(151, 100, 100, 100),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: GridView.count(
@@ -227,28 +227,25 @@ class _HomeScreenState extends State<HomeScreen> {
     IconData icon,
     VoidCallback onPressed,
   ) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: Color(0xFF21262D),
-        shape: BoxShape.circle, // جعل الشكل دائري
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(50),
-          onTap: onPressed,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, size: 30, color: Colors.white), // حجم أيقونة أصغر
-              const SizedBox(height: 8),
-              Text(
-                label,
-                style: const TextStyle(fontSize: 12, color: Colors.white),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onPressed,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon,
+                size: 30,
+                color: const Color.fromARGB(
+                    255, 0, 0, 0)), // الأيقونة فقط بدون خلفية
+            const SizedBox(height: 8),
+            Text(
+              label,
+              style: const TextStyle(
+                  fontSize: 12, color: Color.fromARGB(255, 0, 0, 0)),
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );
