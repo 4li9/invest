@@ -8,22 +8,36 @@ class HomeScreen extends StatelessWidget {
     HomeScreenControllerimp controller = Get.put(HomeScreenControllerimp());
 
     return Scaffold(
-      backgroundColor: Color(0xFF1B1B2F), // خلفية داكنة
+      backgroundColor:
+          Color(0xFFF6F7F9), // لون الخلفية الفاتح كما في الأكواد السابقة
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text('مرحباً بك'),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 16.0),
+          child: IconButton(
+            icon: Icon(Icons.menu, color: Colors.black), // لون الأيقونة أسود
+            onPressed: () {
+              // Handle menu icon press
+            },
+          ),
+        ),
+        title: Text(
+          'منصة التداول',
+          style: TextStyle(
+            color: Colors.black, // لون النص أسود
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.center,
+        ),
         centerTitle: true,
         actions: [
-          // أيقونة الملف الشخصي في الجهة اليمنى من الشريط العلوي
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: IconButton(
-              icon: Icon(Icons.account_circle, size: 36, color: Colors.white),
-              onPressed: () {
-                controller.goToProfileScreen();
-              },
-            ),
+          IconButton(
+            icon: Icon(Icons.account_circle,
+                size: 36, color: Colors.black), // لون الأيقونة أسود
+            onPressed: () {
+              controller.goToProfileScreen();
+            },
           ),
         ],
       ),
@@ -31,65 +45,38 @@ class HomeScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // اسم المستخدم
             Text(
               'MOHAMMED.78.1',
               style: TextStyle(
                 fontSize: 20,
-                color: Colors.white,
+                color: Colors.black, // لون النص أسود
                 fontWeight: FontWeight.bold,
               ),
             ),
             SizedBox(height: 20),
-
-            // مساحة لوضع الصورة بحجم أكبر يشبه بطاقة ائتمان
-            Center(
-              child: Container(
-                height: 200, // ارتفاع أكبر ليشبه بطاقة ائتمان
-                width: 320, // عرض أكبر ليشبه بطاقة ائتمان
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: Colors.grey.shade800,
-                  image: DecorationImage(
-                    image: AssetImage(
-                        'assets/homebanner.jpg'), // تأكد من وضع الصورة في مجلد assets
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ),
-
-            SizedBox(height: 30),
-
-            // شبكة الأزرار في أسفل الشاشة
             Expanded(
               child: GridView.count(
                 crossAxisCount: 3,
-                crossAxisSpacing: 8, // تقليل التباعد العرضي
-                mainAxisSpacing: 8, // تقليل التباعد الطولي
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
                 children: [
                   _buildActionButton(
-                      context, 'سحب', Icons.money_off, Colors.orange, () {
+                      context, 'فريقي', Icons.group, Color(0xFFE6A919), () {
+                    controller.gotoTeamMembersScreen();
+                  }),
+                  _buildActionButton(
+                      context, 'إيداع', Icons.attach_money, Color(0xFFE6A919),
+                      () {
+                    controller.gotoDepositScreen();
+                  }),
+                  _buildActionButton(
+                      context, 'سحب', Icons.money_off, Color(0xFFE6A919), () {
                     controller.gotoWithdrawScreen();
                   }),
                   _buildActionButton(
-                      context, 'إيداع', Icons.attach_money, Colors.amber, () {
-                    controller.gotoDepositScreen();
-                  }),
-                  _buildActionButton(context, 'الدعم الفني',
-                      Icons.support_agent, Colors.purple, () {
+                      context, 'الدعم الفني', Icons.support, Color(0xFFE6A919),
+                      () {
                     controller.gotoNewSupportScreen();
-                    // تنفيذ كود الدعم هنا
-                  }),
-                  _buildActionButton(
-                      context, 'دعوة صديق', Icons.group_add, Colors.teal, () {
-                    controller
-                        .gotoInviteFriendScreen(); // تنفيذ كود دعوة فريق هنا
-                  }),
-                  _buildActionButton(
-                      context, 'الفريق', Icons.group, Colors.blue, () {
-                    controller
-                        .gotoTeamMembersScreen(); // تنفيذ كود الإعدادات هنا
                   }),
                 ],
               ),
@@ -100,34 +87,38 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  // دالة لإنشاء زر خاص بتصميم مشابه للأيقونات في الصورة الأصلية
   Widget _buildActionButton(BuildContext context, String label, IconData icon,
       Color color, VoidCallback onPressed) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xFF162447), // لون الخلفية الداكنة للأيقونة
-        borderRadius: BorderRadius.circular(16),
+        color: color.withOpacity(0.8),
+        shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.3), // تقليل الظل
-            blurRadius: 6,
+            color: color.withOpacity(0.3),
+            blurRadius: 8,
+            spreadRadius: 2,
             offset: Offset(2, 2),
           ),
         ],
       ),
       child: Material(
-        color: Colors.transparent, // خلفية شفافة لمنع خطوط إضافية
+        color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(50),
           onTap: onPressed,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon, size: 36, color: color), // تقليل حجم الأيقونة قليلاً
+              Icon(icon, size: 36, color: Colors.black), // لون الأيقونة أسود
               SizedBox(height: 8),
               Text(
                 label,
-                style: TextStyle(fontSize: 15, color: Colors.white),
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.black, // لون النص أسود
+                  fontWeight: FontWeight.bold,
+                ),
                 textAlign: TextAlign.center,
               ),
             ],

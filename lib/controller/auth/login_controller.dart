@@ -5,6 +5,7 @@ abstract class LoginScreenController extends GetxController {
   LoginScreen();
   goToHomeScreen();
   goToRegisterScreen();
+  goToCheckTheCodeScreen(); // إضافة الدالة الجديدة للانتقال إلى CheckTheCode
 }
 
 class LoginScreenControllerimp extends LoginScreenController {
@@ -19,5 +20,10 @@ class LoginScreenControllerimp extends LoginScreenController {
   @override
   goToRegisterScreen() {
     Get.toNamed(AppRoute.RegisterScreen);
+  }
+
+  @override
+  goToCheckTheCodeScreen() {
+    Get.toNamed(AppRoute.CheckTheCode); // استدعاء المسار الخاص بـ CheckTheCode
   }
 }
