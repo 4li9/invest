@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'dart:async';
-
+import 'package:invest/view/الصفحات/CheckTheCode.dart';
 import 'package:invest/controller/auth/RegisterScreen_controller%20copy.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -78,7 +77,10 @@ class RegisterScreen extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: _isChecked
-                    ? () => _showLoadingDialog(context)
+                    ? () {
+                        // استخدم Get.to للانتقال إلى الصفحة الجديدة
+                        Get.to(() => CheckTheCode());
+                      }
                     : null, // Disable button if checkbox is not checked
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.yellow[700],
@@ -95,22 +97,17 @@ class RegisterScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Center(
-              child: Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Sign up as an entity ',
-                      style: TextStyle(color: Colors.blue),
-                    ),
-                    TextSpan(
-                      text: 'or ',
-                      style: TextStyle(color: Colors.black54),
-                    ),
-                    TextSpan(
-                      text: 'Log in',
-                      style: TextStyle(color: Colors.blue),
-                    ),
-                  ],
+              child: GestureDetector(
+                onTap: () {
+                  // استخدم Get.to للانتقال عند الضغط على زر النص
+                  Get.to(() => CheckTheCode());
+                },
+                child: Text(
+                  'Go to Check The Code',
+                  style: TextStyle(
+                    color: Colors.blue,
+                    decoration: TextDecoration.underline,
+                  ),
                 ),
               ),
             ),
@@ -138,41 +135,5 @@ class RegisterScreen extends StatelessWidget {
       ),
       style: const TextStyle(color: Colors.black),
     );
-  }
-
-  void _showLoadingDialog(BuildContext context) {
-    RegisterScreenControllerimp controller =
-        Get.put(RegisterScreenControllerimp());
-
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => Dialog(
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                'Creating account...',
-                style: TextStyle(color: Colors.black, fontSize: 18),
-              ),
-              const SizedBox(height: 16),
-              const CircularProgressIndicator(color: Colors.yellow),
-            ],
-          ),
-        ),
-      ),
-    );
-
-    Timer(const Duration(seconds: 5), () {
-      Navigator.pop(context); // Close loading dialog
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Account created')),
-      );
-      controller.goToHomeScreen();
-    });
   }
 }

@@ -2,15 +2,16 @@ import 'package:get/get.dart';
 import 'package:invest/core/constant/app_routes.dart';
 
 abstract class LoginScreenController extends GetxController {
-  // ignore: non_constant_identifier_names
+  // تعريف الطرق المجردة
   LoginScreen();
   goToHomeScreen();
   goToRegisterScreen();
+  goToCheckTheCodeScreen(); // إضافة الطريقة الجديدة
 }
 
 class LoginScreenControllerimp extends LoginScreenController {
   @override
-  // ignore: non_constant_identifier_names
+  // تعريف البناء الفارغ
   LoginScreen() {}
 
   @override
@@ -21,5 +22,11 @@ class LoginScreenControllerimp extends LoginScreenController {
   @override
   goToRegisterScreen() {
     Get.toNamed(AppRoute.RegisterScreen);
+  }
+
+  @override
+  goToCheckTheCodeScreen() {
+    Get.toNamed(
+        AppRoute.CheckTheCode); // تأكد من أن AppRoute يحتوي على CheckTheCode
   }
 }

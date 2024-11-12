@@ -9,5 +9,5 @@ class AppRoute {
   static const String InviteFriendScreen = "/InviteFriendScreen";
   static const String HomeScreen = "/HomeScreen";
   static const String DepositScreen = "/DepositScreen";
- 
+  static const String CheckTheCode = '/checkthecode'; // إضافة المسار
 }
