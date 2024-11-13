@@ -10,5 +10,6 @@ class AppRoute {
   static const String HomeScreen = "/HomeScreen";
   static const String DepositScreen = "/DepositScreen";
   static const String CheckTheCode = "/CheckTheCode";
-
+  static const String CreatePassword = "/CreatePassword";
+  static const String Welcome = "/Welcome";
 }

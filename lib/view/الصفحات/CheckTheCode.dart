@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:invest/controller/auth/CheckTheCode_controller.dart';
 
 class CheckTheCode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    CheckTheCodeControllerimp controller = Get.put(CheckTheCodeControllerimp());
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
@@ -14,12 +17,6 @@ class CheckTheCode extends StatelessWidget {
             Get.back(); // هذا السطر يقوم بالعودة للصفحة السابقة
           },
         ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.help_outline, color: Colors.black),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -78,7 +75,9 @@ class CheckTheCode extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  controller.goToCreatePassword();
+                },
                 child: Text(
                   'Next',
                   style: TextStyle(color: Colors.black),

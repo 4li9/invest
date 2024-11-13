@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:invest/controller/auth/RegisterScreen_controller%20copy.dart';
+import 'package:invest/controller/auth/RegisterScreen_controller.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
+  @override
+  _RegisterScreenState createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  RegisterScreenControllerimp controller =
+      Get.put(RegisterScreenControllerimp());
+  bool isChecked = false;
+
   @override
   Widget build(BuildContext context) {
-    RegisterScreenControllerimp controller =
-        Get.put(RegisterScreenControllerimp());
-
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.close, color: Colors.black),
           onPressed: () {
-            Get.back(); // هذا السطر يقوم بالعودة للصفحة السابقة
+            Get.back(); // العودة للصفحة السابقة
           },
         ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.help_outline, color: Colors.black),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -42,8 +42,20 @@ class RegisterScreen extends StatelessWidget {
               decoration: InputDecoration(
                 labelText: 'Email/Phone number',
                 hintText: 'Email/Phone (without country code)',
+                labelStyle: TextStyle(
+                  color: const Color.fromARGB(
+                      255, 0, 0, 0), // لون النص داخل الإطار عند التركيز
+                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(
+                    color: const Color.fromARGB(
+                        255, 0, 0, 0), // لون الإطار عند التركيز
+                    width: 2.0,
+                  ),
                 ),
               ),
             ),
@@ -51,8 +63,17 @@ class RegisterScreen extends StatelessWidget {
             Row(
               children: [
                 Checkbox(
-                  value: true,
-                  onChanged: (bool? value) {},
+                  value: isChecked,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  checkColor: const Color.fromARGB(255, 255, 255, 255),
+                  activeColor: Colors.yellow[700],
+                  onChanged: (bool? value) {
+                    setState(() {
+                      isChecked = value ?? false;
+                    });
+                  },
                 ),
                 Expanded(
                   child: Text(
@@ -82,29 +103,6 @@ class RegisterScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    'Sign up as an entity',
-                    style: TextStyle(color: Colors.orange),
-                  ),
-                ),
-                Text(
-                  ' or ',
-                  style: TextStyle(color: Colors.grey),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    'Log in',
-                    style: TextStyle(color: Colors.orange),
-                  ),
-                ),
-              ],
-            ),
           ],
         ),
       ),
