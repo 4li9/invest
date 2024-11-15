@@ -101,7 +101,7 @@ class _CreatePasswordState extends State<CreatePassword> {
               width: double.infinity,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.yellow[700],
+                  backgroundColor: const Color.fromRGBO(251, 192, 45, 1),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),

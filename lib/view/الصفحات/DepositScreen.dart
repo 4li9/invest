@@ -141,7 +141,7 @@ class DepositScreen extends StatelessWidget {
                 // Add save and share functionality here
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.yellow,
+                backgroundColor: const Color.fromRGBO(255, 235, 59, 1),
                 minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
