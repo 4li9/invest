@@ -12,4 +12,6 @@ class AppRoute {
   static const String CheckTheCode = "/CheckTheCode";
   static const String CreatePassword = "/CreatePassword";
   static const String Welcome = "/Welcome";
+  static const String Navigation_Bar = "/Navigation_Bar";
+
 }

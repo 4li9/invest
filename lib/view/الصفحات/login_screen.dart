@@ -34,7 +34,7 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   ElevatedButton.icon(
                     onPressed: () {
-                      controller.goToHomeScreen();
+                      controller.goToNavigation_Bar();
                     },
                     icon: const Icon(
                       Icons

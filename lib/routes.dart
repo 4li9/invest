@@ -12,6 +12,7 @@ import 'package:invest/view/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A7%D8%AA/login_scr
 import 'package:invest/view/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A7%D8%AA/register_screen.dart';
 import 'package:invest/view/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A7%D8%AA/withdraw_screen.dart';
 import 'package:invest/core/constant/app_routes.dart';
+import 'package:invest/view/widget/auth/Navigation%20bar.dart';
 
 Map<String, Widget Function(BuildContext)> routes = {
   AppRoute.WithdrawScreen: (context) => const WithdrawScreen(),
@@ -26,4 +27,6 @@ Map<String, Widget Function(BuildContext)> routes = {
   AppRoute.CheckTheCode: (context) => CheckTheCode(),
   AppRoute.CreatePassword: (context) => CreatePassword(),
   AppRoute.Welcome: (context) => Welcome(),
+    AppRoute.Navigation_Bar: (context) => Navigation_Bar(),
+
 };

@@ -25,7 +25,7 @@ class _NewSupportScreenState extends State<NewSupportScreen> {
         });
       });
       _messageController.clear();
-      // هنا يمكنك إضافة منطق الرد التلقائي من الدعم الفني إذا كنت ترغب في ذلك
+      // يمكنك هنا إضافة منطق الرد التلقائي إذا لزم الأمر
     }
   }
 
@@ -47,7 +47,7 @@ class _NewSupportScreenState extends State<NewSupportScreen> {
           },
         ),
       ),
-      backgroundColor: const Color(0xFFF6F7F9), // خلفية فاتحة
+      backgroundColor: const Color(0xFFF6F7F9),
       body: Column(
         children: [
           Expanded(

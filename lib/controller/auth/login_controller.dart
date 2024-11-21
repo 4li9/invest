@@ -4,7 +4,7 @@ import 'package:invest/core/constant/app_routes.dart';
 abstract class LoginScreenController extends GetxController {
   // ignore: non_constant_identifier_names
   LoginScreen();
-  goToHomeScreen();
+  goToNavigation_Bar();
   goToRegisterScreen();
 }
 
@@ -14,8 +14,8 @@ class LoginScreenControllerimp extends LoginScreenController {
   LoginScreen() {}
 
   @override
-  goToHomeScreen() {
-    Get.toNamed(AppRoute.HomeScreen);
+  goToNavigation_Bar() {
+    Get.toNamed(AppRoute.Navigation_Bar);
   }
 
   @override

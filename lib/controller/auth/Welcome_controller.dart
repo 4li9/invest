@@ -6,7 +6,7 @@ import 'package:invest/core/constant/app_routes.dart';
 abstract class WelcomeController extends GetxController {
   // ignore: non_constant_identifier_names
   Welcome();
-  goToHomeScreen();
+  goToNavigation_Bar();
 }
 
 class WelcomeControllerimp extends WelcomeController {
@@ -15,7 +15,7 @@ class WelcomeControllerimp extends WelcomeController {
   Welcome() {}
 
   @override
-  goToHomeScreen() {
-    Get.toNamed(AppRoute.HomeScreen);
+  goToNavigation_Bar() {
+    Get.toNamed(AppRoute.Navigation_Bar);
   }
 }

@@ -62,9 +62,9 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: SafeArea(
         child: ListView(
+          padding: const EdgeInsets.all(16.0),
           children: [
             const Align(
               alignment: Alignment.centerRight,
@@ -137,7 +137,7 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
               ),
               style: const TextStyle(color: Colors.black),
             ),
-            const SizedBox(height: 250),
+            const SizedBox(height: 24),
             const Divider(),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),

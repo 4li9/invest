@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:invest/view/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A7%D8%AA/home_screen.dart';
+import 'package:invest/view/widget/auth/Navigation%20bar.dart';
 
 class Welcome extends StatefulWidget {
   @override
@@ -19,118 +19,123 @@ class _WelcomeState extends State<Welcome> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            Get.back(); // هذا السطر يقوم بالعودة للصفحة السابقة
+            Get.back(); // العودة للصفحة السابقة
           },
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.check_circle,
-              color: Colors.green,
-              size: 80,
-            ),
-            SizedBox(height: 20),
-            Text(
-              "Welcome aboard!",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 40), // لإعطاء مساحة في الأعلى
+              const Icon(
+                Icons.check_circle,
+                color: Colors.green,
+                size: 80,
               ),
-            ),
-            SizedBox(height: 40),
-            Text(
-              "Do you have an inviter? (Optional)",
-              style: TextStyle(fontSize: 16, color: Colors.grey[700]),
-            ),
-            SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ChoiceChip(
-                  label: Text('Yes'),
-                  selected: hasInviter == true,
-                  onSelected: (selected) {
-                    setState(() {
-                      hasInviter = true;
-                    });
-                  },
-                  selectedColor: Colors.white,
-                  labelStyle: TextStyle(
-                    color: hasInviter == true ? Colors.black : Colors.grey,
-                    fontWeight: hasInviter == true
-                        ? FontWeight.bold
-                        : FontWeight.normal,
-                  ),
-                  side: BorderSide(
-                    color: hasInviter == true ? Colors.black : Colors.grey,
-                    width: 1,
-                  ),
-                ),
-                SizedBox(width: 10),
-                ChoiceChip(
-                  label: Text('No'),
-                  selected: hasInviter == false,
-                  onSelected: (selected) {
-                    setState(() {
-                      hasInviter = false;
-                    });
-                  },
-                  selectedColor: Colors.white,
-                  labelStyle: TextStyle(
-                    color: hasInviter == false ? Colors.black : Colors.grey,
-                    fontWeight: hasInviter == false
-                        ? FontWeight.bold
-                        : FontWeight.normal,
-                  ),
-                  side: BorderSide(
-                    color: hasInviter == false ? Colors.black : Colors.grey,
-                    width: 1,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Referral ID',
-                filled: true,
-                fillColor: Colors.grey[200],
-                enabled: hasInviter == true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                  borderSide: BorderSide.none,
+              const SizedBox(height: 20),
+              const Text(
+                "Welcome aboard!",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
-            SizedBox(height: 40),
-            ElevatedButton(
-              onPressed: () {
-                _showLoadingDialog();
-              },
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.black,
-                backgroundColor: Colors.yellow,
-                padding: const EdgeInsets.symmetric(vertical: 15),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
+              const SizedBox(height: 40),
+              Text(
+                "Do you have an inviter? (Optional)",
+                style: TextStyle(fontSize: 16, color: Colors.grey[700]),
               ),
-              child: const Center(
-                child: Text(
-                  'Next',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ChoiceChip(
+                    label: const Text('Yes'),
+                    selected: hasInviter == true,
+                    onSelected: (selected) {
+                      setState(() {
+                        hasInviter = true;
+                      });
+                    },
+                    selectedColor: Colors.white,
+                    labelStyle: TextStyle(
+                      color: hasInviter == true ? Colors.black : Colors.grey,
+                      fontWeight: hasInviter == true
+                          ? FontWeight.bold
+                          : FontWeight.normal,
+                    ),
+                    side: BorderSide(
+                      color: hasInviter == true ? Colors.black : Colors.grey,
+                      width: 1,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  ChoiceChip(
+                    label: const Text('No'),
+                    selected: hasInviter == false,
+                    onSelected: (selected) {
+                      setState(() {
+                        hasInviter = false;
+                      });
+                    },
+                    selectedColor: Colors.white,
+                    labelStyle: TextStyle(
+                      color: hasInviter == false ? Colors.black : Colors.grey,
+                      fontWeight: hasInviter == false
+                          ? FontWeight.bold
+                          : FontWeight.normal,
+                    ),
+                    side: BorderSide(
+                      color: hasInviter == false ? Colors.black : Colors.grey,
+                      width: 1,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              TextField(
+                decoration: InputDecoration(
+                  hintText: 'Referral ID',
+                  filled: true,
+                  fillColor: Colors.grey[200],
+                  enabled: hasInviter == true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide: BorderSide.none,
                   ),
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: 40),
+              ElevatedButton(
+                onPressed: () {
+                  _showLoadingDialog();
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.black,
+                  backgroundColor: Colors.yellow,
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: const Center(
+                  child: Text(
+                    'Next',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20), // مساحة إضافية في الأسفل
+            ],
+          ),
         ),
       ),
     );
@@ -141,13 +146,13 @@ class _WelcomeState extends State<Welcome> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        Future.delayed(Duration(seconds: 3), () {
+        Future.delayed(const Duration(seconds: 3), () {
           Navigator.of(context).pop();
           _navigateToHome(); // الانتقال إلى الصفحة الرئيسية بعد تحميل البيانات
         });
         return AlertDialog(
           content: Row(
-            children: [
+            children: const [
               CircularProgressIndicator(),
               SizedBox(width: 20),
               Text("Loading..."),
@@ -160,24 +165,22 @@ class _WelcomeState extends State<Welcome> {
 
   void _navigateToHome() {
     Get.to(
-      HomeScreen(),
+      Navigation_Bar(),
     );
     _showSuccessMessage(); // عرض رسالة نجاح
   }
 
-  // عرض رسالة تأكيد عند إنشاء الحساب بنجاح
   void _showSuccessMessage() {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text("تم إنشاء الحساب بنجاح"),
+        content: const Text("تم إنشاء الحساب بنجاح"),
         backgroundColor: Colors.green,
-        shape: RoundedRectangleBorder(
-          borderRadius:
-              BorderRadius.all(Radius.circular(10)), // تعديل الحواف المنحنية
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         behavior: SnackBarBehavior.floating,
-        margin: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-        duration: Duration(seconds: 3),
+        margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+        duration: const Duration(seconds: 3),
       ),
     );
   }
