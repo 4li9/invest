@@ -1,7 +1,33 @@
 import 'package:flutter/material.dart';
 
-class NewSupportScreen extends StatelessWidget {
+class NewSupportScreen extends StatefulWidget {
   const NewSupportScreen({Key? key}) : super(key: key);
+
+  @override
+  _NewSupportScreenState createState() => _NewSupportScreenState();
+}
+
+class _NewSupportScreenState extends State<NewSupportScreen> {
+  final List<Map<String, dynamic>> _messages = [
+    {
+      'text': 'مرحباً! كيف نستطيع مساعدتك؟',
+      'isUser': false,
+    },
+  ];
+  final TextEditingController _messageController = TextEditingController();
+
+  void _sendMessage() {
+    if (_messageController.text.trim().isNotEmpty) {
+      setState(() {
+        _messages.add({
+          'text': _messageController.text.trim(),
+          'isUser': true,
+        });
+      });
+      _messageController.clear();
+      // هنا يمكنك إضافة منطق الرد التلقائي من الدعم الفني إذا كنت ترغب في ذلك
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,49 +51,37 @@ class NewSupportScreen extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: ListView(
+            child: ListView.builder(
               padding: const EdgeInsets.all(16.0),
-              children: [
-                // رسالة من المستخدم
-                Align(
-                  alignment: Alignment.centerRight,
+              itemCount: _messages.length,
+              itemBuilder: (context, index) {
+                final message = _messages[index];
+                return Align(
+                  alignment: message['isUser']
+                      ? Alignment.centerRight
+                      : Alignment.centerLeft,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16.0, vertical: 10.0),
                     margin: const EdgeInsets.only(bottom: 10.0),
                     decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 4, 4, 4),
+                      color: message['isUser']
+                          ? const Color.fromARGB(255, 4, 4, 4)
+                          : Colors.grey[300],
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: const Text(
-                      'مرحباً، أحتاج إلى مساعدة بخصوص مشكلة في التطبيق.',
+                    child: Text(
+                      message['text'],
                       style: TextStyle(
-                          color: Color.fromARGB(255, 255, 255, 255),
-                          fontSize: 16),
+                        color: message['isUser'] ? Colors.white : Colors.black,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
-                ),
-                // رسالة من الدعم الفني
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0, vertical: 10.0),
-                    margin: const EdgeInsets.only(bottom: 10.0),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: const Text(
-                      'مرحباً، كيف يمكننا مساعدتك؟ الرجاء توضيح المشكلة.',
-                      style: TextStyle(color: Colors.black, fontSize: 16),
-                    ),
-                  ),
-                ),
-              ],
+                );
+              },
             ),
           ),
-          // حقل إدخال الرسالة وزر الإرسال
           Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -75,6 +89,7 @@ class NewSupportScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextField(
+                    controller: _messageController,
                     decoration: InputDecoration(
                       hintText: 'اكتب رسالتك هنا...',
                       hintStyle: TextStyle(color: Colors.grey[400]),
@@ -94,11 +109,8 @@ class NewSupportScreen extends StatelessWidget {
                   radius: 25,
                   backgroundColor: const Color.fromARGB(255, 0, 0, 0),
                   child: IconButton(
-                    icon: const Icon(Icons.send,
-                        color: Color.fromARGB(255, 255, 255, 255)),
-                    onPressed: () {
-                      // تنفيذ الإجراء عند الضغط على زر الإرسال
-                    },
+                    icon: const Icon(Icons.send, color: Colors.white),
+                    onPressed: _sendMessage,
                   ),
                 ),
               ],

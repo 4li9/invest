@@ -1,27 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+<<<<<<< HEAD
 import 'package:invest/view/الصفحات/CheckTheCode.dart';
 import 'package:invest/controller/auth/RegisterScreen_controller%20copy.dart';
+=======
+import 'package:invest/controller/auth/RegisterScreen_controller.dart';
 
-class RegisterScreen extends StatelessWidget {
-  final TextEditingController emailOrPhoneController = TextEditingController();
+class RegisterScreen extends StatefulWidget {
+  @override
+  _RegisterScreenState createState() => _RegisterScreenState();
+}
+>>>>>>> d04ed181da7d8f1fea6b9c067735c521d7d59335
 
-  RegisterScreen({super.key});
-
-  bool _isChecked = false;
+class _RegisterScreenState extends State<RegisterScreen> {
+  RegisterScreenControllerimp controller =
+      Get.put(RegisterScreenControllerimp());
+  bool isChecked = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.close, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            Get.back(); // العودة للصفحة السابقة
+          },
         ),
-        backgroundColor: Colors.white,
-        elevation: 0,
       ),
-      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -29,68 +37,82 @@ class RegisterScreen extends StatelessWidget {
           children: [
             Text(
               'Welcome to Binance',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            const SizedBox(height: 20),
-            _buildTextField(
-              controller: emailOrPhoneController,
-              labelText: 'Email/Phone number',
+            SizedBox(height: 24),
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Email/Phone number',
+                hintText: 'Email/Phone (without country code)',
+                labelStyle: TextStyle(
+                  color: const Color.fromARGB(
+                      255, 0, 0, 0), // لون النص داخل الإطار عند التركيز
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(
+                    color: const Color.fromARGB(
+                        255, 0, 0, 0), // لون الإطار عند التركيز
+                    width: 2.0,
+                  ),
+                ),
+              ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 16),
             Row(
               children: [
                 Checkbox(
-                  value: _isChecked,
-                  onChanged: (value) {
-                    _isChecked = value ?? false;
+                  value: isChecked,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  checkColor: const Color.fromARGB(255, 255, 255, 255),
+                  activeColor: Colors.yellow[700],
+                  onChanged: (bool? value) {
+                    setState(() {
+                      isChecked = value ?? false;
+                    });
                   },
                 ),
                 Expanded(
-                  child: Text.rich(
-                    TextSpan(
-                      text: 'By creating an account, I agree to Binance\'s ',
-                      style: TextStyle(color: Colors.black54),
-                      children: [
-                        TextSpan(
-                          text: 'Terms of Service',
-                          style: TextStyle(
-                            color: Colors.blue,
-                            decoration: TextDecoration.underline,
-                          ),
-                        ),
-                        TextSpan(text: ' and '),
-                        TextSpan(
-                          text: 'Privacy Policy.',
-                          style: TextStyle(
-                            color: Colors.blue,
-                            decoration: TextDecoration.underline,
-                          ),
-                        ),
-                      ],
-                    ),
+                  child: Text(
+                    "By creating an account, I agree to Binance's Terms of Service and Privacy Policy.",
+                    style: TextStyle(fontSize: 14),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 24),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
+<<<<<<< HEAD
                 onPressed: _isChecked
                     ? () {
                         // استخدم Get.to للانتقال إلى الصفحة الجديدة
                         Get.to(() => CheckTheCode());
                       }
                     : null, // Disable button if checkbox is not checked
+=======
+>>>>>>> d04ed181da7d8f1fea6b9c067735c521d7d59335
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.yellow[700],
-                  padding: const EdgeInsets.symmetric(vertical: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                child: const Text(
+                onPressed: () {
+                  controller.goToCheckTheCode();
+                },
+                child: Text(
                   'Next',
+<<<<<<< HEAD
                   style: TextStyle(fontSize: 16, color: Colors.black),
                 ),
               ),
@@ -108,14 +130,19 @@ class RegisterScreen extends StatelessWidget {
                     color: Colors.blue,
                     decoration: TextDecoration.underline,
                   ),
+=======
+                  style: TextStyle(color: Colors.black),
+>>>>>>> d04ed181da7d8f1fea6b9c067735c521d7d59335
                 ),
               ),
             ),
+            SizedBox(height: 16),
           ],
         ),
       ),
     );
   }
+<<<<<<< HEAD
 
   Widget _buildTextField({
     required TextEditingController controller,
@@ -136,4 +163,6 @@ class RegisterScreen extends StatelessWidget {
       style: const TextStyle(color: Colors.black),
     );
   }
+=======
+>>>>>>> d04ed181da7d8f1fea6b9c067735c521d7d59335
 }

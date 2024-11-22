@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:invest/controller/auth/login_controller.dart';
-import 'package:invest/core/constant/colore.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -55,26 +54,6 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 16),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      controller.goToHomeScreen();
-                    },
-                    icon: const Icon(
-                      Icons.email,
-                      color: AppColor.one,
-                      size: 24,
-                    ),
-                    label: const Text('تسجيل دخول بواسطة ايميل'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.two,
-                      foregroundColor: AppColor.one,
-                      minimumSize: const Size(double.infinity, 48),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ),
                   const SizedBox(height: 10),
                   // Text instead of TextButton
                   RichText(
