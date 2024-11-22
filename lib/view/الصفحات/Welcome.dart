@@ -98,41 +98,43 @@ class _WelcomeState extends State<Welcome> {
                 ],
               ),
               const SizedBox(height: 20),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'Referral ID',
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                  enabled: hasInviter == true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 40),
-              ElevatedButton(
-                onPressed: () {
-                  _showLoadingDialog();
-                },
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.black,
-                  backgroundColor: Colors.yellow,
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                child: const Center(
-                  child: Text(
-                    'Next',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+              if (hasInviter == true) ...[
+                TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Referral ID',
+                    filled: true,
+                    fillColor: Colors.grey[200],
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: BorderSide.none,
                     ),
                   ),
                 ),
-              ),
+                const SizedBox(height: 20),
+              ],
+              if (hasInviter != null) // زر يظهر فقط عند اختيار Yes أو No
+                ElevatedButton(
+                  onPressed: () {
+                    _showLoadingDialog();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.black,
+                    backgroundColor: Colors.yellow,
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      'Next',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
               const SizedBox(height: 20), // مساحة إضافية في الأسفل
             ],
           ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:invest/core/constant/colore.dart';
 import 'package:invest/view/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A7%D8%AA/DepositScreen.dart';
 import 'package:invest/view/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A7%D8%AA/InviteFriendScreen.dart';
+import 'package:invest/view/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A7%D8%AA/ProfileScreen.dart';
 import 'package:invest/view/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A7%D8%AA/TeamMembersScreen.dart';
 import 'package:invest/view/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A7%D8%AA/home_screen.dart';
 import 'package:invest/view/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A7%D8%AA/withdraw_screen.dart';
@@ -17,7 +18,7 @@ class _Navigation_BarState extends State<Navigation_Bar> {
       PageController(initialPage: 4); // تعيين الصفحة الافتراضية
 
   final List<Widget> _screens = [
-    InviteFriendScreen(), // الشاشة دعوه صديق
+    ProfileScreen(), // الشاشة دعوه صديق
     TeamMembersScreen(), // شاشة الفريق
     WithdrawScreen(), // شاشة السحب
     DepositScreen(), // شاشة الإيداع
@@ -51,8 +52,8 @@ class _Navigation_BarState extends State<Navigation_Bar> {
         onTap: _onItemTapped, // عند الضغط على أيقونة في شريط التنقل
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.group_add),
-            label: 'دعوه صديق',
+            icon: Icon(Icons.person),
+            label: 'الحساب',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.groups),

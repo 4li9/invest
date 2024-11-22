@@ -5,49 +5,48 @@ class TeamMembersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // الحصول على أبعاد الشاشة
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:
-            Color.fromARGB(255, 255, 255, 255), // تغيير اللون إلى الأسود الغامق
+        backgroundColor: Colors.white,
         elevation: 0,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'دعوة صديق',
-              style: TextStyle(
-                  color: const Color.fromARGB(255, 3, 3, 3),
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold),
-            ),
-          ],
+        title: Center(
+          child: Text(
+            'دعوة صديق',
+            style: TextStyle(
+                color: Colors.black,
+                fontSize: screenWidth * 0.045,
+                fontWeight: FontWeight.bold),
+          ),
         ),
         leading: IconButton(
-          icon:
-              Icon(Icons.arrow_back, color: const Color.fromARGB(255, 0, 0, 0)),
+          icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.language, color: Colors.white),
+            icon: Icon(Icons.language, color: Colors.black),
             onPressed: () {},
           ),
         ],
       ),
-      backgroundColor: Color(0xFFF6F7F9), // تغيير اللون إلى الرمادي الفاتح
+      backgroundColor: const Color(0xFFF6F7F9),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(screenWidth * 0.04),
         child: Column(
           children: [
             Card(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(screenWidth * 0.02),
               ),
               elevation: 4,
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(screenWidth * 0.04),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -55,39 +54,42 @@ class TeamMembersScreen extends StatelessWidget {
                       'فريق الإحالة',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 18,
+                        fontSize: screenWidth * 0.045,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: screenHeight * 0.01),
                     Text(
                       'لقد قمت بدعوة 0 من الرواد الجدد.\nإجمالي أعضاء فريق الإحالة الخاص بك: 0.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          color: Color(
-                              0xFFB0B0B0), // تعديل اللون إلى الرمادي الفاتح
-                          fontSize: 14),
+                        color: const Color(0xFFB0B0B0),
+                        fontSize: screenWidth * 0.035,
+                      ),
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: screenHeight * 0.02),
                     ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(
-                            255, 3, 3, 3), // تعديل اللون إلى الأصفر
+                        backgroundColor: Colors.black,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius:
+                              BorderRadius.circular(screenWidth * 0.02),
                         ),
                       ),
                       child: Text(
                         'غير نشط',
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: screenWidth * 0.04,
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            SizedBox(height: screenHeight * 0.02),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -95,7 +97,7 @@ class TeamMembersScreen extends StatelessWidget {
                   'Members',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 16,
+                    fontSize: screenWidth * 0.04,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -111,16 +113,16 @@ class TeamMembersScreen extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            SizedBox(height: screenHeight * 0.02),
             Expanded(
               child: Center(
                 child: Text(
                   'لم ينضم أحد إلى فريق الإحالة الخاص بك حتى الآن.\nاحصل على المزيد من خلال دعوة الأصدقاء.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color:
-                          Color(0xFFB0B0B0), // تعديل اللون إلى الرمادي الفاتح
-                      fontSize: 14),
+                    color: const Color(0xFFB0B0B0),
+                    fontSize: screenWidth * 0.035,
+                  ),
                 ),
               ),
             ),
@@ -131,32 +133,33 @@ class TeamMembersScreen extends StatelessWidget {
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
-                    side: BorderSide(
-                        color: Color.fromARGB(
-                            255, 16, 14, 9)), // تعديل اللون إلى الأصفر
+                    side: const BorderSide(color: Colors.black),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(screenWidth * 0.02),
                     ),
                   ),
                   child: Text(
                     'غرفة دردشة فريق الإحالة',
                     style: TextStyle(
-                        color: Color.fromARGB(
-                            255, 108, 76, 0)), // تعديل اللون إلى الأصفر
+                      color: Colors.black,
+                      fontSize: screenWidth * 0.035,
+                    ),
                   ),
                 ),
                 ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        Color.fromARGB(255, 0, 0, 0), // تعديل اللون إلى الأصفر
+                    backgroundColor: Colors.black,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(screenWidth * 0.02),
                     ),
                   ),
                   child: Text(
                     'دعوة المزيد',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: screenWidth * 0.035,
+                    ),
                   ),
                 ),
               ],

@@ -9,14 +9,13 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final String fullName = "Import.Code"; // الاسم الرباعي للمستخدم
-  final String email = "usgfgfer@example.com"; // البريد الإلكتروني
-  final String username = "@import_code9"; // يوزر المستخدم على التطبيق
+  final String fullName = "Import.Code";
+  final String email = "usgfgfer@example.com";
+  final String username = "@import_code9";
 
   ImageProvider<Object> profileImage =
-      AssetImage('assets/images/profile_picture.jpg'); // صورة الملف الشخصي
+      AssetImage('assets/images/profile_picture.jpg');
 
-  // دالة لتغيير صورة الملف الشخصي
   Future<void> _changeProfileImage() async {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -27,7 +26,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
-  // دالة لإخفاء جزء من البريد الإلكتروني
   String _obscureEmail(String email) {
     final parts = email.split('@');
     final username = parts[0];
@@ -41,44 +39,41 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      backgroundColor: Colors.white, // تغيير الخلفية إلى الأبيض
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: IconThemeData(
-            color: Colors.black), // تغيير لون الأيقونات إلى الأسود
+        iconTheme: IconThemeData(color: Colors.black),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context); // يرجع إلى الشاشة السابقة
+            Navigator.pop(context);
           },
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.edit, color: Colors.black), // أيقونة القلم للتعديل
+            icon: Icon(Icons.edit, color: Colors.black),
             onPressed: () {
               // وظيفة تعديل الملف الشخصي
             },
           ),
           PopupMenuButton<String>(
-            icon: Icon(Icons.more_vert,
-                color: Colors.black), // أيقونة الثلاث نقاط
-            color: Colors.grey[200], // لون خلفية القائمة
+            icon: Icon(Icons.more_vert, color: Colors.black),
+            color: Colors.grey[200],
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10), // إضافة حواف مستديرة
+              borderRadius: BorderRadius.circular(10),
             ),
             onSelected: (String value) {
-              // الإجراءات التي تحدث عند اختيار عنصر من القائمة
               switch (value) {
                 case 'edit_info':
-                  // وظيفة تعديل معلومات الملف الشخصي
                   break;
                 case 'change_language':
-                  // وظيفة تغيير لغة التطبيق
                   break;
                 case 'change_password':
-                  // وظيفة تغيير كلمة المرور
                   break;
               }
             },
@@ -86,45 +81,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
               PopupMenuItem<String>(
                 value: 'edit_info',
                 child: Row(
-                  mainAxisAlignment:
-                      MainAxisAlignment.end, // محاذاة الأيقونة لليمين
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
                       'تعديل معلومات الملف',
                       style: TextStyle(color: Colors.black),
                     ),
                     SizedBox(width: 10),
-                    Icon(Icons.edit, color: Colors.black54), // أيقونة القلم
+                    Icon(Icons.edit, color: Colors.black54),
                   ],
                 ),
               ),
               PopupMenuItem<String>(
                 value: 'change_language',
                 child: Row(
-                  mainAxisAlignment:
-                      MainAxisAlignment.end, // محاذاة الأيقونة لليمين
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
                       'تغيير لغة التطبيق',
                       style: TextStyle(color: Colors.black),
                     ),
                     SizedBox(width: 10),
-                    Icon(Icons.language, color: Colors.black54), // أيقونة اللغة
+                    Icon(Icons.language, color: Colors.black54),
                   ],
                 ),
               ),
               PopupMenuItem<String>(
                 value: 'change_password',
                 child: Row(
-                  mainAxisAlignment:
-                      MainAxisAlignment.end, // محاذاة الأيقونة لليمين
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
                       'تغيير كلمة المرور',
                       style: TextStyle(color: Colors.black),
                     ),
                     SizedBox(width: 10),
-                    Icon(Icons.lock, color: Colors.black54), // أيقونة القفل
+                    Icon(Icons.lock, color: Colors.black54),
                   ],
                 ),
               ),
@@ -132,10 +124,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(screenWidth * 0.04),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end, // المحاذاة إلى اليمين
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -143,95 +135,77 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 GestureDetector(
                   onTap: _changeProfileImage,
                   child: CircleAvatar(
-                    radius: 35,
-                    backgroundImage: profileImage, // الصورة القابلة للتغيير
+                    radius: screenWidth * 0.1,
+                    backgroundImage: profileImage,
                   ),
                 ),
-                SizedBox(width: 15),
+                SizedBox(width: screenWidth * 0.05),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       fullName,
                       style: TextStyle(
-                        color: Colors.black, // تغيير لون النص إلى الأسود
-                        fontSize: 20,
+                        color: Colors.black,
+                        fontSize: screenWidth * 0.05,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 5),
+                    SizedBox(height: screenHeight * 0.01),
                     Text(
                       "متصل",
                       style: TextStyle(
                         color: Colors.green,
-                        fontSize: 16,
+                        fontSize: screenWidth * 0.04,
                       ),
                     ),
                   ],
                 ),
               ],
             ),
-            SizedBox(height: 30),
-            // صندوق معلومات المستخدم
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-              decoration: BoxDecoration(
-                color: Colors.grey[200], // خلفية الحقول باللون الرمادي الفاتح
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Column(
-                crossAxisAlignment:
-                    CrossAxisAlignment.end, // المحاذاة إلى اليمين
-                children: [
-                  _buildProfileRow(
-                    icon: Icons.person,
-                    label: "اسم المستخدم",
-                    value: fullName,
-                  ),
-                  Divider(color: Colors.grey),
-                  _buildProfileRow(
-                    icon: Icons.email,
-                    label: "البريد الإلكتروني",
-                    value: _obscureEmail(email),
-                  ),
-                  Divider(color: Colors.grey),
-                  _buildProfileRow(
-                    icon: Icons.alternate_email,
-                    label: "يوزر المستخدم",
-                    value: username,
-                  ),
-                ],
-              ),
+            SizedBox(height: screenHeight * 0.03),
+            _buildSection(
+              context,
+              children: [
+                _buildProfileRow(
+                  icon: Icons.person,
+                  label: "اسم المستخدم",
+                  value: fullName,
+                ),
+                Divider(color: Colors.grey),
+                _buildProfileRow(
+                  icon: Icons.email,
+                  label: "البريد الإلكتروني",
+                  value: _obscureEmail(email),
+                ),
+                Divider(color: Colors.grey),
+                _buildProfileRow(
+                  icon: Icons.alternate_email,
+                  label: "يوزر المستخدم",
+                  value: username,
+                ),
+              ],
             ),
-            SizedBox(height: 20),
-            // صندوق تغيير كلمة المرور وتسجيل الخروج
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-              decoration: BoxDecoration(
-                color: Colors.grey[200], // خلفية الحقول باللون الرمادي الفاتح
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Column(
-                crossAxisAlignment:
-                    CrossAxisAlignment.end, // المحاذاة إلى اليمين
-                children: [
-                  _buildOptionRow(
-                    icon: Icons.lock,
-                    label: "تغيير كلمة المرور",
-                    onTap: () {
-                      // وظيفة تغيير كلمة المرور
-                    },
-                  ),
-                  Divider(color: Colors.grey),
-                  _buildOptionRow(
-                    icon: Icons.logout,
-                    label: "تسجيل الخروج",
-                    onTap: () {
-                      // وظيفة تسجيل الخروج
-                    },
-                  ),
-                ],
-              ),
+            SizedBox(height: screenHeight * 0.02),
+            _buildSection(
+              context,
+              children: [
+                _buildOptionRow(
+                  icon: Icons.lock,
+                  label: "تغيير كلمة المرور",
+                  onTap: () {
+                    // وظيفة تغيير كلمة المرور
+                  },
+                ),
+                Divider(color: Colors.grey),
+                _buildOptionRow(
+                  icon: Icons.logout,
+                  label: "تسجيل الخروج",
+                  onTap: () {
+                    // وظيفة تسجيل الخروج
+                  },
+                ),
+              ],
             ),
           ],
         ),
@@ -249,33 +223,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         Icon(icon, color: Colors.blue),
         SizedBox(width: 10),
         Expanded(
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-            decoration: BoxDecoration(
-              color: Colors.grey[100], // اللون الرمادي الفاتح للخلفية
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  label,
-                  style: TextStyle(
-                    color: Colors.black54, // لون النص الرمادي الفاتح
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 4),
-                Text(
-                  value,
-                  style: TextStyle(
-                    color: Colors.black, // لون النص الأسود
-                    fontSize: 16,
-                  ),
-                ),
-              ],
-            ),
+          child: Text(
+            "$label: $value",
+            style: TextStyle(fontSize: 16, color: Colors.black),
           ),
         ),
       ],
@@ -294,22 +244,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Icon(icon, color: Colors.blue),
           SizedBox(width: 10),
           Expanded(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-              decoration: BoxDecoration(
-                color: Colors.grey[100], // اللون الرمادي الفاتح للخلفية
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                label,
-                style: TextStyle(
-                  color: Colors.black, // لون النص الأسود
-                  fontSize: 16,
-                ),
-              ),
+            child: Text(
+              label,
+              style: TextStyle(fontSize: 16, color: Colors.black),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildSection(BuildContext context, {required List<Widget> children}) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: MediaQuery.of(context).size.width * 0.04,
+        vertical: MediaQuery.of(context).size.height * 0.02,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: children,
       ),
     );
   }

@@ -5,6 +5,7 @@ import 'package:invest/controller/auth/CheckTheCode_controller.dart';
 class CheckTheCode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // ربط الـ Controller بالواجهة
     CheckTheCodeControllerimp controller = Get.put(CheckTheCodeControllerimp());
 
     return Scaffold(
@@ -48,11 +49,17 @@ class CheckTheCode extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
+                      onChanged: (value) {
+                        controller
+                            .validateCode(value); // التحقق عند إدخال الكود
+                      },
                     ),
                   ),
                   SizedBox(width: 8),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      controller.sendCode(); // استدعاء إرسال الكود
+                    },
                     child: Text(
                       'Get Code',
                       style: TextStyle(color: Colors.orange, fontSize: 16),
@@ -61,10 +68,11 @@ class CheckTheCode extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 8),
-              Text(
-                'undefined (undefined)',
-                style: TextStyle(color: Colors.red, fontSize: 12),
-              ),
+              // عرض رسالة الخطأ باستخدام Obx
+              Obx(() => Text(
+                    controller.errorMessage.value, // عرض رسالة الخطأ
+                    style: TextStyle(color: Colors.red, fontSize: 12),
+                  )),
               SizedBox(height: 24),
               SizedBox(
                 width: double.infinity,
@@ -76,7 +84,8 @@ class CheckTheCode extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    controller.goToCreatePassword();
+                    controller
+                        .goToCreatePassword(); // الانتقال عند الضغط على الزر
                   },
                   child: Text(
                     'Next',
@@ -87,7 +96,9 @@ class CheckTheCode extends StatelessWidget {
               SizedBox(height: 16),
               Center(
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    controller.sendCode(); // نفس الإجراء عند الضغط على النص
+                  },
                   child: Text(
                     "Didn't receive the code?",
                     style: TextStyle(color: Colors.orange),
