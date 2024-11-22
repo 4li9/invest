@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'dart:async';
-import 'package:invest/controller/auth/home_controller.dart';
-import 'package:invest/view/widget/auth/BackgroundWrapper%20.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,41 +11,37 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  HomeScreenControllerimp controller = Get.put(HomeScreenControllerimp());
-
-  late Timer _timer;
-  Duration _remainingTime = const Duration(hours: 24);
-  bool _isDollarButtonEnabled = true;
-  double remainingBalance = 93.62;
-  double depositAmount = 100.00;
+  final Duration _countdownDuration = const Duration(hours: 24);
+  late Duration _remainingDuration;
+  Timer? _timer;
 
   @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
+  void initState() {
+    super.initState();
+    _remainingDuration = _countdownDuration;
   }
 
-  void _startTimer() {
+  void _startCountdown() {
+    if (_timer != null && _timer!.isActive) return;
+
+    setState(() {
+      _remainingDuration =
+          _countdownDuration; // إعادة تعيين الوقت عند كل تشغيل.
+    });
+
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (_remainingTime.inSeconds > 0) {
+      if (_remainingDuration.inSeconds > 0) {
         setState(() {
-          _remainingTime = _remainingTime - const Duration(seconds: 1);
+          _remainingDuration -= const Duration(seconds: 1);
         });
       } else {
+        timer.cancel();
         setState(() {
-          _isDollarButtonEnabled = true;
+          _remainingDuration =
+              _countdownDuration; // إعادة ضبط الوقت بعد انتهاء العد.
         });
-        _timer.cancel();
       }
     });
-  }
-
-  void _onDollarButtonPressed() {
-    setState(() {
-      _isDollarButtonEnabled = false;
-      _remainingTime = const Duration(hours: 24);
-    });
-    _startTimer();
   }
 
   String _formatDuration(Duration duration) {
@@ -57,197 +52,257 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BackgroundWrapper(
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      minTextAdapt: true,
+      builder: (context, child) => Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: const Color(0xFF00A99D),
           elevation: 0,
-          title: const Text(
-            'مرحباً بك',
-            style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-          ),
-          centerTitle: true,
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 16.0),
-              child: IconButton(
-                icon: const Icon(Icons.account_circle,
-                    size: 36, color: Colors.white),
-                onPressed: () {
-                  controller.goToProfileScreen();
-                },
-              ),
-            ),
-          ],
+          toolbarHeight: 0,
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                _buildCombinedInfoBox(),
-                const SizedBox(height: 30),
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: GridView.count(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 12,
-                    mainAxisSpacing: 12,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [
-                      _buildActionButton(context, 'سحب', Icons.money_off, () {
-                        controller.gotoWithdrawScreen();
-                      }),
-                      _buildActionButton(context, 'إيداع', Icons.attach_money,
-                          () {
-                        controller.gotoDepositScreen();
-                      }),
-                      _buildActionButton(
-                          context, 'الدعم الفني', Icons.support_agent, () {
-                        controller.gotoNewSupportScreen();
-                      }),
-                      _buildActionButton(context, 'دعوة صديق', Icons.group_add,
-                          () {
-                        controller.gotoInviteFriendScreen();
-                      }),
-                      _buildActionButton(context, 'الفريق', Icons.group, () {
-                        controller.gotoTeamMembersScreen();
-                      }),
-                    ],
-                  ),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(), // تفعيل التمرير السلس
+            child: Container(
+              color: const Color(0xFFEFF7F8),
+              child: Padding(
+                padding: EdgeInsets.all(16.0.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Hi, Mohammed Fouad",
+                              style: GoogleFonts.poppins(
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                            Text(
+                              "#TH1731683650501",
+                              style: GoogleFonts.poppins(
+                                fontSize: 12.sp,
+                                color: const Color(0xFF00A99D),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Icon(Icons.help_outline,
+                            color: Colors.black54, size: 24.sp),
+                      ],
+                    ),
+                    SizedBox(height: 20.h),
+                    Container(
+                      padding: EdgeInsets.all(16.w),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16.r),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            spreadRadius: 1,
+                            blurRadius: 10,
+                            offset: const Offset(0, 5),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(Icons.attach_money,
+                                  color: const Color(0xFF00A99D), size: 32.sp),
+                              SizedBox(width: 8.w),
+                              Text(
+                                "راســــــــــــ الــــــــــــــمال",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: const Color.fromARGB(255, 0, 0, 0),
+                                ),
+                              ),
+                              const Spacer(),
+                              Icon(Icons.info_outline,
+                                  color: Colors.grey, size: 20.sp),
+                            ],
+                          ),
+                          SizedBox(height: 8.h),
+                          Text(
+                            "0 USDT",
+                            style: GoogleFonts.poppins(
+                              fontSize: 24.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          Text(
+                            "5/12/2024/ ..استـثـمــرت يــوم",
+                            style: GoogleFonts.poppins(
+                              fontSize: 12.sp,
+                              color: const Color.fromARGB(255, 0, 0, 0),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 20.h),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 20.h, horizontal: 16.w),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF00A99D),
+                              borderRadius: BorderRadius.circular(16.r),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "الأربـــــــــــاح   ",
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Icon(Icons.info_outline,
+                                        color: const Color(0xFFE0E0E0),
+                                        size: 20.sp),
+                                  ],
+                                ),
+                                SizedBox(height: 2.h),
+                                Text(
+                                  "0",
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 24.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                SizedBox(height: 1.h),
+                                Text(
+                                  "≈ 0 USDT",
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 12.sp,
+                                    color: Colors.white70,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 20.w),
+                        Expanded(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 20.h, horizontal: 16.w),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF1B1B2F),
+                              borderRadius: BorderRadius.circular(16.r),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "مبـلــغ السحـــب",
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Icon(Icons.info_outline,
+                                        color: Colors.white70, size: 20.sp),
+                                  ],
+                                ),
+                                SizedBox(height: 12.h),
+                                Text(
+                                  "0 USDT",
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 24.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 30.h),
+                    Center(
+                      child: GestureDetector(
+                        onTap: _startCountdown,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            SizedBox(
+                              width: 192.w,
+                              height: 192.w,
+                              child: CircularProgressIndicator(
+                                value: 1 -
+                                    (_remainingDuration.inSeconds /
+                                        _countdownDuration.inSeconds),
+                                strokeWidth: 10.w,
+                                backgroundColor: Colors.grey[300],
+                                valueColor: const AlwaysStoppedAnimation<Color>(
+                                    Color(0xFF00A99D)),
+                              ),
+                            ),
+                            Container(
+                              alignment: Alignment.center,
+                              width: 160.w,
+                              height: 160.w,
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Text(
+                                _formatDuration(_remainingDuration),
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: const Color(0xFF00A99D),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 30.h),
+                  ],
                 ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCombinedInfoBox() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: const Color(0xFF21262D),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.blue.withOpacity(0.5), width: 1),
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildBalanceButton(
-                amount: depositAmount,
-                label: ' الأربــاح  ',
-                onPressed: () {
-                  setState(() {
-                    if (depositAmount >= 10) {
-                      depositAmount -= 10;
-                    }
-                  });
-                },
               ),
-              _buildBalanceButton(
-                amount: remainingBalance,
-                label: 'رأس المال',
-                onPressed: () {
-                  setState(() {
-                    remainingBalance += 10;
-                  });
-                },
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: _isDollarButtonEnabled ? _onDollarButtonPressed : null,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue.withOpacity(0.2),
-              side: BorderSide(color: Colors.blueAccent.withOpacity(0.5)),
-              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 50),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12)),
             ),
-            child: const Icon(
-              Icons.attach_money,
-              color: Colors.white,
-              size: 48,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            _formatDuration(_remainingTime),
-            style: const TextStyle(fontSize: 14, color: Colors.white),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBalanceButton({
-    required double amount,
-    required String label,
-    required VoidCallback onPressed,
-  }) {
-    return Column(
-      children: [
-        Text(
-          amount.toStringAsFixed(2),
-          style: const TextStyle(
-              color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        ElevatedButton(
-          onPressed: onPressed,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.transparent,
-            shadowColor: Colors.transparent,
-            side: BorderSide(color: Colors.blueAccent.withOpacity(0.5)),
-          ),
-          child: Text(
-            label,
-            style: const TextStyle(color: Colors.white),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildActionButton(
-    BuildContext context,
-    String label,
-    IconData icon,
-    VoidCallback onPressed,
-  ) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: Color(0xFF21262D),
-        shape: BoxShape.circle, // جعل الشكل دائري
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(50),
-          onTap: onPressed,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, size: 30, color: Colors.white), // حجم أيقونة أصغر
-              const SizedBox(height: 8),
-              Text(
-                label,
-                style: const TextStyle(fontSize: 12, color: Colors.white),
-                textAlign: TextAlign.center,
-              ),
-            ],
           ),
         ),
       ),

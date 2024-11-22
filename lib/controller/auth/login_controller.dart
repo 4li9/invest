@@ -4,7 +4,7 @@ import 'package:invest/core/constant/app_routes.dart';
 abstract class LoginScreenController extends GetxController {
   // تعريف الطرق المجردة
   LoginScreen();
-  goToHomeScreen();
+  goToNavigation_Bar();
   goToRegisterScreen();
   goToCheckTheCodeScreen(); // إضافة الطريقة الجديدة
 }
@@ -15,8 +15,8 @@ class LoginScreenControllerimp extends LoginScreenController {
   LoginScreen() {}
 
   @override
-  goToHomeScreen() {
-    Get.toNamed(AppRoute.HomeScreen);
+  goToNavigation_Bar() {
+    Get.toNamed(AppRoute.Navigation_Bar);
   }
 
   @override
