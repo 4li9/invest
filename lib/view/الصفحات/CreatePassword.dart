@@ -144,14 +144,14 @@ class _CreatePasswordState extends State<CreatePassword> {
     return Row(
       children: [
         Icon(
-          isValid ? Icons.check : Icons.close,
-          color: isValid ? Colors.green : Colors.red,
+          Icons.check,
+          color: isValid ? Colors.green : Colors.grey, // لون العلامة
         ),
         SizedBox(width: 8),
         Text(
           text,
           style: TextStyle(
-            color: isValid ? Colors.green : Colors.red,
+            color: Colors.grey, // النص يبقى رمادي دائمًا
           ),
         ),
       ],
